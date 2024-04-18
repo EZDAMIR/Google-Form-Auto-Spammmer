@@ -1,11 +1,26 @@
+import time
 import requests
 import random
 import threading
+from selenium import webdriver
+from twocaptcha import TwoCaptcha
+
+solver = TwoCaptcha('YOUR_API_KEY')
+
+
 
 GoogleURL = "https://docs.google.com/forms/d/e/1FAIpQLSeRk-OZGhqcIImy6aQdIvTd7_TOZB1HaUnazu1gFMUdRnD7aw"
 
 urlResponse = GoogleURL + "/formResponse"
 urlReferer = GoogleURL + "/viewForm"
+
+site_key = '6LfwuyUTAAAAAOAmoS0fdqijC2PbbdH4kjq62Y1b'
+
+option = webdriver.ChromeOptions()
+driver = webdriver.Chrome(options = option)
+
+driver.get(GoogleURL)
+
 
 form_data = {'entry.595221527': ['Очень Знакомо', 'Немного знакомо',
                                  'Не знакомо'],
@@ -21,22 +36,25 @@ form_data = {'entry.595221527': ['Очень Знакомо', 'Немного з
              'entry.1426285918': ['Повышение прозрачности', 'Сокращение возможностей для коррупции',
                                   'Без изменений',
                                   "Не уверен"],
-             'entry.2049345275': ['Да', 'Нет']}
+             'entry.2049345275': ['Да', 'Нет'],}
 
-# Number of threads you want to run
-num_threads = 5
-chunks_per_thread = 100
+# Number of threads you want to run(Do not use too many threads)
+num_threads = 60
+chunks_per_thread =10000
 
 threads = []
 
+count = 0
 
-def submit_form(chunk):
+def submit_form(chunks_per_thread):
+    global count
     user_agent = {'Referer': urlReferer,
                   'User-Agent': "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.52 Safari/537.36"}
-    for _ in range(chunk):
+    for _ in range(chunks_per_thread):
         random_form_data = {key: random.choice(values) for key, values in form_data.items()}
         r = requests.post(urlResponse, data=random_form_data, headers=user_agent)
-        print(random_form_data)
+        count+=1
+        print(count)
 
 
 # create and start the threads
