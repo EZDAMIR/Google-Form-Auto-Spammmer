@@ -1,27 +1,16 @@
-import time
 import requests
 import random
 import threading
-from selenium import webdriver
-from twocaptcha import TwoCaptcha
-
-solver = TwoCaptcha('YOUR_API_KEY')
 
 
-
+#URL of google form page
 GoogleURL = "https://docs.google.com/forms/d/e/1FAIpQLSeRk-OZGhqcIImy6aQdIvTd7_TOZB1HaUnazu1gFMUdRnD7aw"
 
 urlResponse = GoogleURL + "/formResponse"
 urlReferer = GoogleURL + "/viewForm"
 
-site_key = '6LfwuyUTAAAAAOAmoS0fdqijC2PbbdH4kjq62Y1b'
-
-option = webdriver.ChromeOptions()
-driver = webdriver.Chrome(options = option)
-
-driver.get(GoogleURL)
-
-
+#IDs of entries can be found in console after sumbitting the form.
+#Example of data that will be entered
 form_data = {'entry.595221527': ['Очень Знакомо', 'Немного знакомо',
                                  'Не знакомо'],
              'entry.963201081': ['Очень большая пробелма', 'Своего рода проблема',
@@ -38,13 +27,14 @@ form_data = {'entry.595221527': ['Очень Знакомо', 'Немного з
                                   "Не уверен"],
              'entry.2049345275': ['Да', 'Нет'],}
 
-# Number of threads you want to run(Do not use too many threads)
+# Number of threads you want to run(Do not use too many thread)
 num_threads = 60
 chunks_per_thread =10000
 
 threads = []
 
 count = 0
+
 
 def submit_form(chunks_per_thread):
     global count
