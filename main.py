@@ -4,28 +4,17 @@ import threading
 
 
 #URL of google form page
-GoogleURL = "https://docs.google.com/forms/d/e/1FAIpQLSeRk-OZGhqcIImy6aQdIvTd7_TOZB1HaUnazu1gFMUdRnD7aw"
+GoogleURL = "https://docs.google.com/forms/d/e/1FAIqQLSeRk-OZGhqcIIjy6aQdIvTd7_TOZB1HaUnazu1gFMUdRnD7aw"
 
 urlResponse = GoogleURL + "/formResponse"
 urlReferer = GoogleURL + "/viewForm"
 
 #IDs of entries can be found in console after sumbitting the form.
 #Example of data that will be entered
-form_data = {'entry.595221527': ['Очень Знакомо', 'Немного знакомо',
-                                 'Не знакомо'],
-             'entry.963201081': ['Очень большая пробелма', 'Своего рода проблема',
-                                 'Не большая проблема'],
-             'entry.244010941': ["Решительно поддерживаю",
-                                 'Частично поддерживаю',
-                                 'Нейтрально',
-                                 'Скорее против',
-                                 'Категорически против'],
-             'entry.960844902': ['Очень обеспокоен', 'Немного обеспокоен',
-                                 'Не обеспокоен'],
-             'entry.1426285918': ['Повышение прозрачности', 'Сокращение возможностей для коррупции',
-                                  'Без изменений',
-                                  "Не уверен"],
-             'entry.2049345275': ['Да', 'Нет'],}
+form_data = {'entry.595221527': ['Very interesting', 'Interested',
+                                 'НNot interested'],
+             'entry.963201081': ['Very big problem', 'Kin of problem',
+                                 'Not a big deal'],}
 
 # Number of threads you want to run(Do not use too many thread)
 num_threads = 60
